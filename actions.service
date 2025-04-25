@@ -1,0 +1,25 @@
+# actions.service
+#
+# Для автоматического запуска actions.py как сервиса:
+# 1. Скопируйте этот файл в /etc/systemd/system/ (требуются права root):
+#    sudo cp actions.service /etc/systemd/system/
+# 2. Перезагрузите конфигурацию systemd:
+#    sudo systemctl daemon-reload
+# 3. Включите автозапуск сервиса:
+#    sudo systemctl enable actions.service
+# 4. Запустите сервис:
+#    sudo systemctl start actions.service
+#
+# Сервис будет автоматически обновлять файл LustUpdate каждые 5 минут.
+[Unit]
+Description=Auto-update LustUpdate file every 5 minutes
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/workspaces/VVVVVVVV
+ExecStart=/usr/bin/env python3 /workspaces/VVVVVVVV/actions.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
